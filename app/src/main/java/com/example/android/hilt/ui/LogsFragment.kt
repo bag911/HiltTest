@@ -29,7 +29,7 @@ import com.example.android.hilt.LogApplication
 import com.example.android.hilt.R
 import com.example.android.hilt.data.Log
 import com.example.android.hilt.data.LoggerDataSource
-import com.example.android.hilt.data.LoggerLocalDataSource
+import com.example.android.hilt.di.InMemoryModule
 import com.example.android.hilt.util.DateFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -39,9 +39,11 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class LogsFragment : Fragment() {
-
-    @Inject lateinit var logger: LoggerDataSource
-    @Inject lateinit var dateFormatter: DateFormatter
+    @InMemoryModule
+    @Inject
+    lateinit var logger: LoggerDataSource
+    @Inject
+    lateinit var dateFormatter: DateFormatter
 
     private lateinit var recyclerView: RecyclerView
 
@@ -60,12 +62,6 @@ class LogsFragment : Fragment() {
     }
 
 
-
-    private fun populateFields(context: Context) {
-        logger = (context.applicationContext as LogApplication).serviceLocator.loggerLocalDataSource
-        dateFormatter =
-            (context.applicationContext as LogApplication).serviceLocator.provideDateFormatter()
-    }
 
     override fun onResume() {
         super.onResume()

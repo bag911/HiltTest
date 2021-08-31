@@ -27,6 +27,7 @@ import com.example.android.hilt.LogApplication
 import com.example.android.hilt.R
 import com.example.android.hilt.data.LoggerDataSource
 import com.example.android.hilt.data.LoggerLocalDataSource
+import com.example.android.hilt.di.InMemoryModule
 import com.example.android.hilt.navigator.AppNavigator
 import com.example.android.hilt.navigator.Screens
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,6 +39,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ButtonsFragment : Fragment() {
 
+    @InMemoryModule
     @Inject lateinit var logger: LoggerDataSource
     @Inject lateinit var navigator: AppNavigator
 
@@ -49,14 +51,6 @@ class ButtonsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_buttons, container, false)
     }
 
-
-    private fun populateFields(context: Context) {
-        logger = (context.applicationContext as LogApplication).
-            serviceLocator.loggerLocalDataSource
-
-        navigator = (context.applicationContext as LogApplication).
-            serviceLocator.provideNavigator(requireActivity())
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.findViewById<Button>(R.id.button1).setOnClickListener {

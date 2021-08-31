@@ -28,7 +28,7 @@ import javax.inject.Singleton
  * Data manager class that handles data manipulation between the database and the UI.
  */
 
-@ActivityScoped
+
 class LoggerLocalDataSource @Inject constructor(private val logDao: LogDao): LoggerDataSource {
 
     private val executorService: ExecutorService = Executors.newFixedThreadPool(4)
